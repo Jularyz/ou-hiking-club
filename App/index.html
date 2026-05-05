@@ -30,12 +30,10 @@
 
     <main>
         <div class="main-layout">
-            <!-- Karten-Container (früher events-list) -->
             <div class="cards-container">
                 <div class="selected-date-header" id="selectedDateHeader">
                     <span>📅 Loading...</span>
                 </div>
-                <!-- Karte 1 (Hike) -->
                 <article class="card">
                     <div class="event-image">
                         <img src="imgs/event1.jpg" alt="Hike-Watcombe-Walton">
@@ -65,8 +63,6 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Karte 2 (Hike) -->
                 <article class="card">
                     <div class="event-image">
                         <img src="imgs/event1.jpg" alt="Hike-Watcombe-Walton">
@@ -97,8 +93,6 @@
                     </div>
                 </article>
             </div>
-
-            <!-- Kalender-Sidebar (unverändert) -->
             <aside class="calendar-sidebar">
                 <div class="calendar">
                     <div id="calendar"></div>
@@ -112,7 +106,7 @@
     </main>
 
     <script>
-        // Mobile Navigation Toggle (identisch)
+        // Mobile Navigation Toggle
         const mobileNavBtn = document.getElementById('mobile-nav');
         const navMenu = document.querySelector('nav');
         function toggleMobileNav() {
@@ -139,7 +133,7 @@
             });
         }
         
-        // Kalender-Logik (unverändert)
+        // Calendar
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth();
         let selectedDate = new Date();
