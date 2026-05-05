@@ -31,7 +31,6 @@
     <main>
         <div class="main-layout">
             <div class="cards-container">
-                <!-- Mitglied 1 -->
                 <article class="card card--member">
                     <div class="member-details">
                         <dl>
@@ -61,8 +60,6 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Mitglied 2 -->
                 <article class="card card--member">
                     <div class="member-details">
                         <dl>
@@ -92,8 +89,6 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Mitglied 3 -->
                 <article class="card card--member">
                     <div class="member-details">
                         <dl>
@@ -124,8 +119,6 @@
                     </div>
                 </article>
             </div>
-
-            <!-- Admin-Panel (rechte Spalte) -->
             <aside class="calendar-sidebar">
                 <div class="admin-panel">
                     <h3>Manage members</h3>
@@ -139,7 +132,7 @@
     </main>
 
     <script>
-        // Mobile Navigation (wie gehabt)
+        // Mobile Navigation
         const mobileNavBtn = document.getElementById('mobile-nav');
         const navMenu = document.querySelector('nav');
         function toggleMobileNav() {
@@ -165,7 +158,7 @@
                 });
             });
         }
-        // Active-Checkbox Toggle
+        // Active-Checkbox
         function setupActiveToggle(checkboxId, labelId) {
             const checkbox = document.getElementById(checkboxId);
             const label = document.getElementById(labelId);
