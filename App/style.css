@@ -23,7 +23,7 @@ header {
     text-align: center;
     position: relative;
     color: white;
-    background-color: #1e3a1e; /* Fallback-Farbe */
+    background-color: #1e3a1e;
 }
 header::before {
     content: '';
@@ -107,7 +107,7 @@ main {
     padding: 2rem 1rem;
 }
 
-/* ===== LAYOUT ===== */
+/* LAYOUT */
 .main-layout {
     display: flex;
     gap: 2rem;
@@ -141,7 +141,7 @@ main {
     display: inline-block;
 }
 
-/* ===== BASIS-KARTE (.card) ===== */
+/* CARD LAYOUT */
 .card {
     background: white;
     border-radius: 1rem;
@@ -156,7 +156,7 @@ main {
     box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.12);
 }
 
-/* Bilder in Hike/Social-Karten */
+/* Card images */
 .event-image {
     flex-shrink: 0;
     width: 25rem;
@@ -246,7 +246,7 @@ main {
     display: inline-block;
 }
 
-/* ===== NEWS-KARTE (kein Bild) ===== */
+/* News card */
 .card--news .event-image {
     display: none;
 }
@@ -286,7 +286,7 @@ main {
     justify-content: flex-end;
 }
 
-/* ===== MITGLIEDER-KARTE ===== */
+/* Members card */
 .card--member {
     flex-direction: column;
 }
@@ -339,7 +339,7 @@ main {
     transform: scale(1.02);
 }
 
-/* ===== KALENDER ===== */
+/* CALENDAR */
 .calendar {
     background: white;
     border-radius: 1.5rem;
@@ -423,7 +423,7 @@ main {
     box-shadow: inset 0 0 0 2px #2c6e2c;
 }
 
-/* ===== SIDEBAR BUTTONS ===== */
+/* SIDEBAR BUTTONS */
 .action-btn-group {
     display: flex;
     flex-direction: column;
@@ -458,7 +458,7 @@ main {
     transform: translateY(1px);
 }
 
-/* ===== ADMIN-PANEL (rechte Spalte) ===== */
+/* ADMIN-PANEL */
 .admin-panel {
     background: white;
     border-radius: 1.5rem;
@@ -482,7 +482,7 @@ main {
     gap: 1rem;
 }
 
-/* ===== FORMS ===== */
+/* FORMS */
 .forms-heading {
     font-size: 1.6rem;
     color: #2c4a2c;
@@ -597,7 +597,7 @@ textarea {
     transform: translateY(-1px);
 }
 
-/* ===== UPLOAD-BEREICH (generisch) ===== */
+/* UPLOAD AREA  */
 .upload-area {
     background: white;
     border-radius: 1.5rem;
