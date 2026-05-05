@@ -34,7 +34,6 @@
             <input type="hidden" name="SessionIdentifier" value="db34-af22-bcda6836-8070"/>
 
             <div class="form-columns">
-                <!-- Linke Spalte: Eingabefelder -->
                 <div class="column">
                     <div class="small-field">
                         <label for="hike_name">Name of hike</label>
@@ -82,7 +81,6 @@
                     </div>
                 </div>
 
-                <!-- Rechte Spalte: Nur Bild-Upload (kein Kalender mehr) -->
                 <div class="column">
                     <div class="upload-area">
                         <div class="preview" id="imagePreview">
@@ -106,7 +104,7 @@
     </main>
 
     <script>
-        // Mobile Navigation Toggle (wie auf allen anderen Seiten)
+        // Mobile Navigation Toggle
         const mobileNavBtn = document.getElementById('mobile-nav');
         const navMenu = document.querySelector('nav');
         function toggleMobileNav() {
@@ -133,7 +131,7 @@
             });
         }
 
-        // Bild-Upload Logik (unverändert)
+        // Image-Upload
         const loadBtn = document.getElementById('loadImageBtn');
         const deleteBtn = document.getElementById('deleteImageBtn');
         const fileInput = document.getElementById('imageUpload');
