@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>OU Hiking Club | Social events</title>
+    <link rel="stylesheet" href="style.css">
+	<link rel="preload" as="image" href="./imgs/header.jpg" type="image/jpeg">
+</head>
+<body>
+    <header>
+        <div class="user-info">
+            <span>Username</span>
+            <button type="button" aria-label="Sign in or log out">Sign in / Log out</button>
+        </div>
+        <button type="button" id="mobile-nav" aria-label="Navigation">☰</button>
+        <div class="header-title">
+            <h1>OU Hiking Club</h1>
+            <h2>Administrators</h2>
+        </div>
+        <button type="button" id="options" aria-label="Options">⋮</button>
+    </header>
+
+    <nav>
+        <a href="index.html">Hike events</a>
+        <a href="social_events.html" class="active">Social events</a>
+        <a href="members.html">Members</a>
+        <a href="news.html">News</a>
+    </nav>
+
+    <main>
+        <div class="main-layout">
+            <div class="cards-container">
+                <div class="selected-date-header" id="selectedDateHeader">
+                    <span>📅 Loading...</span>
+                </div>
+                <!-- Bowling Event -->
+                <article class="card">
+                    <div class="event-image">
+                        <img src="imgs/bowling.jpg" alt="Bowling">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <h3>Bowling event</h3>
+                            <div class="button-group" role="group" aria-label="Event actions">
+                                <button type="button">Edit</button>
+                                <button type="button">Delete</button>
+                            </div>
+                        </div>
+                        <div class="event-details">
+                            <dl>
+                                <dt>Date of event:</dt><dd>18/05/2026</dd>
+                                <dt>Type:</dt><dd>Bowling</dd>
+                                <dt>Starting time:</dt><dd>7.00 pm</dd>
+                                <dt>Duration:</dt><dd>1 hour</dd>
+                                <dt>Location:</dt><dd>70 Victoria St<br>London SW1E 6SQ<br>United Kingdom</dd>
+                                <dt>Cost:</dt><dd>14.60£ per person</dd>
+                                <dt>Maximum group size:</dt><dd>15</dd>
+                                <dt>Contact person:</dt><dd>Oliver Brown</dd>
+                                <dt>Conact number:</dt><dd>07979471348</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </article>
+                <!-- Minigolf Event -->
+                <article class="card">
+                    <div class="event-image">
+                        <img src="imgs/minigolf.jpg" alt="Minigolf">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <h3>Minigolf event</h3>
+                            <div class="button-group" role="group" aria-label="Event actions">
+                                <button type="button">Edit</button>
+                                <button type="button">Delete</button>
+                            </div>
+                        </div>
+                        <div class="event-details">
+                            <dl>
+                                <dt>Date of event:</dt><dd>18/05/2026</dd>
+                                <dt>Type:</dt><dd>Minigolf</dd>
+                                <dt>Starting time:</dt><dd>8.00 pm</dd>
+                                <dt>Duration:</dt><dd>1 hour</dd>
+                                <dt>Location:</dt><dd>70 Victoria St<br>London SW1E 6SQ<br>United Kingdom</dd>
+                                <dt>Cost:</dt><dd>12£ per person</dd>
+                                <dt>Maximum group size:</dt><dd>15</dd>
+                                <dt>Contact person:</dt><dd>Elizabeth Murphy</dd>
+                                <dt>Conact number:</dt><dd>07976485197</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <aside class="calendar-sidebar">
+                <div class="calendar">
+                    <div id="calendar"></div>
+                    <div class="action-btn-group">
+                        <button type="button" class="action-btn" id="addEventBtn" onclick="window.location.href='./add_event.html'">Add event</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileNavBtn = document.getElementById('mobile-nav');
+        const navMenu = document.querySelector('nav');
+        function toggleMobileNav() {
+            if (!navMenu) return;
+            navMenu.classList.toggle('show');
+            if (navMenu.classList.contains('show')) {
+                navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.alignItems = 'center';
+            } else {
+                navMenu.style.display = '';
+            }
+        }
+        if (mobileNavBtn && navMenu) {
+            mobileNavBtn.addEventListener('click', toggleMobileNav);
+            const navLinks = navMenu.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navMenu.classList.remove('show');
+                        navMenu.style.display = '';
+                    }
+                });
+            });
+        }
+        
+        // Kalender-Logik (vollständig aus index.html)
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+        let selectedDate = new Date();
+        const calendarContainer = document.getElementById('calendar');
+        const selectedDateHeader = document.getElementById('selectedDateHeader');
+        function formatDateForHeader(date) {
+            if (!date) return '📅 No date selected — click any day on the calendar';
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return `🗓️ Selected: ${date.toLocaleDateString(undefined, options)}`;
+        }
+        function updateHeader() {
+            if (selectedDateHeader) {
+                selectedDateHeader.innerHTML = `<span>${formatDateForHeader(selectedDate)}</span>`;
+            }
+        }
+        function renderCalendar() {
+            if (!calendarContainer) return;
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+            let firstWeekday = firstDayOfMonth.getDay();
+            let startOffset = (firstWeekday === 0) ? 6 : firstWeekday - 1;
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const today = new Date();
+            const todayYear = today.getFullYear();
+            const todayMonth = today.getMonth();
+            const todayDate = today.getDate();
+            let html = `<div class="calendar-header"><h3>${monthNames[currentMonth]} ${currentYear}</h3><div class="month-nav"><button type="button" id="prevMonthBtn">←</button><button type="button" id="nextMonthBtn">→</button></div></div><table><thead><tr>`;
+            for (let wd of weekdays) html += `<th>${wd}</th>`;
+            html += `<tr></thead><tbody><tr>`;
+            let dayCounter = 1;
+            for (let i = 0; i < startOffset; i++) html += `<td class="empty-cell"></td>`;
+            for (let i = startOffset; i < 7; i++) {
+                if (dayCounter > daysInMonth) break;
+                const isToday = (currentYear === todayYear && currentMonth === todayMonth && dayCounter === todayDate);
+                const isSelected = (selectedDate && selectedDate.getFullYear() === currentYear && selectedDate.getMonth() === currentMonth && selectedDate.getDate() === dayCounter);
+                let additionalClass = '', spanClass = '';
+                if (isToday) spanClass = 'today';
+                if (isSelected) additionalClass = 'selected-date-cell';
+                html += `<td class="calendar-day-cell ${additionalClass}" data-year="${currentYear}" data-month="${currentMonth}" data-day="${dayCounter}"><span class="${spanClass}">${dayCounter}</span></td>`;
+                dayCounter++;
+            }
+            html += `</tr>`;
+            while (dayCounter <= daysInMonth) {
+                html += `<tr>`;
+                for (let i = 0; i < 7; i++) {
+                    if (dayCounter > daysInMonth) html += `<td class="empty-cell"></td>`;
+                    else {
+                        const isToday = (currentYear === todayYear && currentMonth === todayMonth && dayCounter === todayDate);
+                        const isSelected = (selectedDate && selectedDate.getFullYear() === currentYear && selectedDate.getMonth() === currentMonth && selectedDate.getDate() === dayCounter);
+                        let additionalClass = '', spanClass = '';
+                        if (isToday) spanClass = 'today';
+                        if (isSelected) additionalClass = 'selected-date-cell';
+                        html += `<td class="calendar-day-cell ${additionalClass}" data-year="${currentYear}" data-month="${currentMonth}" data-day="${dayCounter}"><span class="${spanClass}">${dayCounter}</span></td>`;
+                        dayCounter++;
+                    }
+                }
+                html += `</tr>`;
+            }
+            html += `</tbody><table>`;
+            calendarContainer.innerHTML = html;
+            document.getElementById('prevMonthBtn')?.addEventListener('click', (e) => { e.stopPropagation(); changeMonth(-1); });
+            document.getElementById('nextMonthBtn')?.addEventListener('click', (e) => { e.stopPropagation(); changeMonth(1); });
+            attachDateSelectionEvents();
+        }
+        function attachDateSelectionEvents() {
+            document.querySelectorAll('.calendar-day-cell').forEach(cell => {
+                cell.removeEventListener('click', handleDayClick);
+                cell.addEventListener('click', handleDayClick);
+            });
+        }
+        function handleDayClick(event) {
+            let targetCell = event.currentTarget;
+            if (!targetCell?.dataset.year) return;
+            const year = parseInt(targetCell.dataset.year), month = parseInt(targetCell.dataset.month), day = parseInt(targetCell.dataset.day);
+            const newSelected = new Date(year, month, day);
+            if (isNaN(newSelected.getTime())) return;
+            selectedDate = newSelected;
+            updateHeader();
+            renderCalendar();
+        }
+        function changeMonth(delta) {
+            let newMonth = currentMonth + delta, newYear = currentYear;
+            if (newMonth < 0) { newMonth = 11; newYear--; }
+            else if (newMonth > 11) { newMonth = 0; newYear++; }
+            currentYear = newYear; currentMonth = newMonth;
+            if (selectedDate && (selectedDate.getFullYear() !== currentYear || selectedDate.getMonth() !== currentMonth)) selectedDate = null;
+            updateHeader();
+            renderCalendar();
+        }
+        selectedDate = new Date();
+        updateHeader();
+        renderCalendar();
+    </script>
+</body>
+</html>
