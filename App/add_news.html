@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preload" as="image" href="./imgs/header.jpg" type="image/jpeg">
+    <title>OU Hiking Club - Add news</title>
+</head>
+<body>
+    <header>
+        <div class="user-info">
+            <span>Username</span>
+            <button type="button" aria-label="Sign in or log out">Sign in / Log out</button>
+        </div>
+        <button type="button" id="mobile-nav" aria-label="Navigation">☰</button>
+        <div class="header-title">
+            <h1>OU Hiking Club</h1>
+            <h2>Administrators</h2>
+        </div>
+        <button type="button" id="options" aria-label="Options">⋮</button>
+    </header>
+
+    <nav>
+        <a href="index.html">Hike events</a>
+        <a href="social_events.html">Social events</a>
+        <a href="members.html">Members</a>
+        <a href="news.html">News</a>
+    </nav>
+
+    <main>
+        <h3 class="forms-heading">Create news item</h3>
+        <form action="https://students.open.ac.uk/mct/tt284/reflect/reflect.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="SessionIdentifier" value="db34-af22-bcda6836-8070"/>
+
+            <!-- Erste Zeile: zwei Spalten -->
+            <div class="form-columns">
+                <div class="column">
+                    <div class="small-field">
+                        <label for="forename">Forename</label>
+                        <input type="text" id="forename" name="forename" required />
+                    </div>
+                    <div class="small-field">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" name="email" required />
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="small-field">
+                        <label for="surname">Surname</label>
+                        <input type="text" id="surname" name="surname" required />
+                    </div>
+                    <div class="small-field">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Großes Textfeld (News item) -->
+            <div class="full-field">
+                <label for="news_item">News item</label>
+                <textarea id="news_item" name="news_item" maxlength="2000" rows="6"></textarea>
+            </div>
+
+            <!-- Datumsfelder (nebeneinander) -->
+            <div class="form-columns" style="margin-top: 1.5rem;">
+                <div class="column">
+                    <div class="small-field">
+                        <label for="first_showing">First showing</label>
+                        <input type="date" id="first_showing" name="first_showing" required />
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="small-field">
+                        <label for="last_showing">Last showing</label>
+                        <input type="date" id="last_showing" name="last_showing" required />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="buttons">
+                <button type="submit">Submit</button>
+                <button type="reset" onclick="window.location.href='./news.html'">Cancel</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileNavBtn = document.getElementById('mobile-nav');
+        const navMenu = document.querySelector('nav');
+        function toggleMobileNav() {
+            if (!navMenu) return;
+            navMenu.classList.toggle('show');
+            if (navMenu.classList.contains('show')) {
+                navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.alignItems = 'center';
+            } else {
+                navMenu.style.display = '';
+            }
+        }
+        if (mobileNavBtn && navMenu) {
+            mobileNavBtn.addEventListener('click', toggleMobileNav);
+            const navLinks = navMenu.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navMenu.classList.remove('show');
+                        navMenu.style.display = '';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

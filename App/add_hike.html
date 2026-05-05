@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preload" as="image" href="./imgs/header.jpg" type="image/jpeg">
+    <title>OU Hiking Club - Add hike</title>
+</head>
+<body>
+    <header>
+        <div class="user-info">
+            <span>Username</span>
+            <button type="button" aria-label="Sign in or log out">Sign in / Log out</button>
+        </div>
+        <button type="button" id="mobile-nav" aria-label="Navigation">☰</button>
+        <div class="header-title">
+            <h1>OU Hiking Club</h1>
+            <h2>Administrators</h2>
+        </div>
+        <button type="button" id="options" aria-label="Options">⋮</button>
+    </header>
+
+    <nav>
+        <a href="index.html">Hike events</a>
+        <a href="social_events.html">Social events</a>
+        <a href="members.html">Members</a>
+        <a href="news.html">News</a>
+    </nav>
+
+    <main>
+        <h3 class="forms-heading">Create hike event</h3>
+        <form action="https://students.open.ac.uk/mct/tt284/reflect/reflect.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="SessionIdentifier" value="db34-af22-bcda6836-8070"/>
+
+            <div class="form-columns">
+                <!-- Linke Spalte: Eingabefelder -->
+                <div class="column">
+                    <div class="small-field">
+                        <label for="hike_name">Name of hike</label>
+                        <input type="text" id="hike_name" name="hike_name" required />
+                    </div>
+                    <div class="small-field">
+                        <label for="type">Type</label>
+                        <input type="text" id="type" name="type" value="hike" readonly />
+                    </div>
+                    <div class="small-field">
+                        <label for="date">Date of hike</label>
+                        <input type="date" id="date" name="date" required />
+                    </div>
+                    <div class="small-field">
+                        <label for="start_time">Starting time</label>
+                        <input type="time" id="start_time" name="start_time" required />
+                    </div>
+                    <div class="small-field">
+                        <label for="duration">Average duration</label>
+                        <input type="text" id="duration" name="duration" placeholder="e.g. 2 hours" />
+                    </div>
+                    <div class="small-field">
+                        <label for="meeting_point">Meeting point</label>
+                        <input type="text" id="meeting_point" name="meeting_point" />
+                    </div>
+                    <div class="small-field">
+                        <label for="terrain">Terrain</label>
+                        <input type="text" id="terrain" name="terrain" />
+                    </div>
+                    <div class="small-field">
+                        <label for="ascent">Ascent in m</label>
+                        <input type="number" id="ascent" name="ascent" step="10" />
+                    </div>
+                    <div class="small-field">
+                        <label for="max_group">Maximum group size</label>
+                        <input type="number" id="max_group" name="max_group" />
+                    </div>
+                    <div class="small-field">
+                        <label for="leader">Name of leader</label>
+                        <input type="text" id="leader" name="leader" />
+                    </div>
+                    <div class="small-field">
+                        <label for="contact">Contact number</label>
+                        <input type="tel" id="contact" name="contact" />
+                    </div>
+                </div>
+
+                <!-- Rechte Spalte: Nur Bild-Upload (kein Kalender mehr) -->
+                <div class="column">
+                    <div class="upload-area">
+                        <div class="preview" id="imagePreview">
+                            <div class="placeholder">No image selected</div>
+                        </div>
+                        <div class="upload-actions">
+                            <button type="button" id="loadImageBtn">Load image</button>
+                            <button type="button" id="deleteImageBtn">Delete image</button>
+                        </div>
+                        <input type="file" id="imageUpload" accept="image/jpeg,image/png,image/jpg" style="display: none;" />
+                        <input type="hidden" name="hike_image" id="hike_image" value="" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit">Submit</button>
+                <button type="reset" onclick="window.location.href='./index.html'">Cancel</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Mobile Navigation Toggle (wie auf allen anderen Seiten)
+        const mobileNavBtn = document.getElementById('mobile-nav');
+        const navMenu = document.querySelector('nav');
+        function toggleMobileNav() {
+            if (!navMenu) return;
+            navMenu.classList.toggle('show');
+            if (navMenu.classList.contains('show')) {
+                navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.alignItems = 'center';
+            } else {
+                navMenu.style.display = '';
+            }
+        }
+        if (mobileNavBtn && navMenu) {
+            mobileNavBtn.addEventListener('click', toggleMobileNav);
+            const navLinks = navMenu.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navMenu.classList.remove('show');
+                        navMenu.style.display = '';
+                    }
+                });
+            });
+        }
+
+        // Bild-Upload Logik (unverändert)
+        const loadBtn = document.getElementById('loadImageBtn');
+        const deleteBtn = document.getElementById('deleteImageBtn');
+        const fileInput = document.getElementById('imageUpload');
+        const previewDiv = document.getElementById('imagePreview');
+        const hiddenImage = document.getElementById('hike_image');
+
+        loadBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    previewDiv.innerHTML = `<img src="${ev.target.result}" alt="Hike image">`;
+                    hiddenImage.value = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        deleteBtn.addEventListener('click', () => {
+            previewDiv.innerHTML = '<div class="placeholder">No image selected</div>';
+            fileInput.value = '';
+            hiddenImage.value = '';
+        });
+    </script>
+</body>
+</html>
