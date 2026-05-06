@@ -25,16 +25,6 @@ header {
     color: white;
     background-color: #1e3a1e; /* Fallback-Farbe */
 }
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 1;
-}
 header > * {
     position: relative;
     z-index: 2;
@@ -94,8 +84,11 @@ nav a {
     transition: background-color 0.3s ease;
     font-size: 1rem;
 }
-nav a:hover,
 nav a.active {
+    background-color: #f5f7f0;
+    color: #2c4a2c;
+}
+nav a:hover {
     background-color: #dee0da;
     color: #2c4a2c;
 }
