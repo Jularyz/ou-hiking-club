@@ -1,4 +1,4 @@
-/* GLOBAL RESET */
+/* ===== GLOBAL RESET ===== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -24,16 +24,6 @@ header {
     position: relative;
     color: white;
     background-color: #1e3a1e;
-}
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 1;
 }
 header > * {
     position: relative;
@@ -94,9 +84,12 @@ nav a {
     transition: background-color 0.3s ease;
     font-size: 1rem;
 }
-nav a:hover,
 nav a.active {
     background-color: #f5f7f0;
+    color: #2c4a2c;
+}
+nav a:hover {
+    background-color: #dee0da;
     color: #2c4a2c;
 }
 
@@ -152,7 +145,6 @@ main {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 .card:hover {
-    transform: translateY(-0.125rem);
     box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.12);
 }
 
@@ -245,7 +237,7 @@ main {
     display: inline-block;
 }
 
-/* NEWS */
+/* NEWS Card */
 .card--news .event-image {
     display: none;
 }
@@ -285,7 +277,7 @@ main {
     justify-content: flex-end;
 }
 
-/* MEMBERS */
+/*Member Card */
 .card--member {
     flex-direction: column;
 }
@@ -596,7 +588,7 @@ textarea {
     transform: translateY(-1px);
 }
 
-/* UPLOAD IMAGE */
+/* UPLOAD-IMAGE */
 .upload-area {
     background: white;
     border-radius: 1.5rem;
